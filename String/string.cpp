@@ -22,7 +22,8 @@ public:
     void insertStr(String *p1, int pos, String *p2); // 在p1串的pos位置上插入一个p2串，返回插入的结果
     void deleteStr(String *p, int i, int j);         // 删除子串，从p1中删除第i个字符开始的长度为j的子串
     String *substr(String *p, int i, int j);         // 返回串p中第i个字符起长度为j的子串
-    int getIndex(String *p1, String *p2);            // p1 p2均为非空串，若p1中存在子串与p2相等，返回位置。否则，返回0
+    int getIndex(String *p1, String *p2);            // p1 p2均为非空串，若p1中存在子串与p2相等，返回位置。否则，返回0,(朴素的模式匹配算法)
+    void getNext(String *p, int *next);              // KMP算法中获取next数组
 private:
     char data[maxsize];
     int length;
@@ -194,4 +195,19 @@ int String::getIndex(String *p1, String *p2)
     }
     puts("找不到这个子串");
     return -1;
+}
+
+void String::getNext(String *p, int *next)
+{
+    // p字符串的下标从1开始
+    next[0] = 0;
+    next[1] = 0; // 只取一个字符的时候next[1]为0
+    for (int i = 2, j = 0; i <= getLen(p); i++)
+    {
+        while (j != 0 && p->data[i] != p->data[j + 1])
+            j = next[j];
+        if (p->data[i] == p->data[j + 1])
+            j++;
+        next[i] = j;
+    }
 }
