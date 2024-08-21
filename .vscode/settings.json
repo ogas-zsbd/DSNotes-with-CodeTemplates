@@ -6,6 +6,7 @@
         "random": "cpp",
         "vector": "cpp",
         "*.tcc": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "algorithm": "cpp"
     }
 }
