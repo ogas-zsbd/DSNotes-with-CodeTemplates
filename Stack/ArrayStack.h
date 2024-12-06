@@ -1,3 +1,14 @@
+/*
+ * @Author: OGAS 2970143166@qq.com
+ * @Date: 2024-06-01 22:07:35
+ * @LastEditors: OGAS 2970143166@qq.com
+ * @LastEditTime: 2024-12-06 23:23:01
+ * @FilePath: \learnForDS\Stack\ArrayStack.h
+ * @Description: Coding with UTF-8
+ *
+ * Copyright (c) 2024 by OGAS, All Rights Reserved.
+ */
+#pragma once
 #include <iostream>
 
 using namespace std;
@@ -9,7 +20,6 @@ class ArrayStack
 {
 public:
     ArrayStack(int s = 10); // 默认的栈容量为10
-    ~ArrayStack();
 
     T getTop();     // 获取栈顶元素
     void push(T t); // 入栈
@@ -78,5 +88,10 @@ T ArrayStack<T>::getTop()
     if (top != -1)
     {
         return array[top];
+    }
+    else
+    {
+        throw out_of_range("这是一个空栈");
+        system("pasue");
     }
 }

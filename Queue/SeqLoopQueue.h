@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -23,9 +24,10 @@ private:
 };
 
 template <typename T>
-LoopQueue<T>::LoopQueue(int c = 10) : capacity(c), begin(0), end(0), queue(NULL)
+LoopQueue<T>::LoopQueue(int c) : capacity(c), begin(0), end(0), queue(NULL)
 {
-    queue = new T[capacity];
+    queue = new T[capacity + 1];
+    capacity++; // 多加一个位置用于判断队列是否满
 }
 
 template <typename T>
@@ -37,9 +39,7 @@ LoopQueue<T>::~LoopQueue()
 template <typename T>
 bool LoopQueue<T>::isEmpty()
 {
-    if (begin == end)
-        return false;
-    return true;
+    return begin == end;
 }
 
 template <typename T>
@@ -78,10 +78,9 @@ void LoopQueue<T>::pop()
 template <typename T>
 T LoopQueue<T>::getFront()
 {
-    if (end == begin)
+    if (isEmpty())
     {
-        puts("队列为空！");
-        return false;
+        throw std::out_of_range("队列为空！");
     }
     return queue[begin];
 }
